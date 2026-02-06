@@ -19,9 +19,7 @@ jobs:
       - name: Deploy VM
         run: |
           source /home/user/openrc.sh
-          export OS_INSECURE=1
-          export OS_INTERFACE=internal
-          export OS_REGION_NAME=RegionOne
+          export OS_COMPUTE_API_URL=https://192.168.255.200:8774/v2.1
           openstack --insecure token issue
           openstack --insecure server delete VM-LABO || true
           openstack --insecure server create VM-LABO \
