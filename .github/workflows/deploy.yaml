@@ -20,8 +20,8 @@ jobs:
         run: |
           source /home/user/openrc.sh
           openstack --insecure token issue
-          openstack server delete VM-LABO || true
-          openstack server create VM-LABO \
+          openstack --insecure server delete VM-LABO || true
+          openstack --insecure server create VM-LABO \
             --image alpine-cloud \
             --flavor m1.small \
             --network LAN-LABO \
