@@ -1,0 +1,33 @@
+name: deploy-vm
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    if: github.actor == 'TaneoMoisson1'
+    runs-on: self-hosted
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install OpenStack client
+        run: |
+          sudo snap install openstackclients --classic
+
+      - name: Load OpenStack credentials
+        run: |
+          source /home/user/openrc.sh
+
+      - name: Deploy VM
+        run: |
+          openstack server create VM-LABO \
+            --image alpine-cloud \
+            --flavor m1.small \
+            --network LAN-LABO \
+            --user-data cloud-init.yml \
+            --security-group default
+
+          FIP=$(openstack floating ip create external -f value -c floating_ip_address)
+          openstack server add floating ip VM-LABO $FIP
+          echo "VM En Ligne : $FIP"
