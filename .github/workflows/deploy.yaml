@@ -27,8 +27,8 @@ jobs:
             --network LAN-LABO \
             --user-data cloud-init.yml \
             --security-group default \
-            --os-interface public
+            --os-interface internal
 
-          FIP=$(openstack floating ip create external -f value -c floating_ip_address)
-          openstack server add floating ip VM-LABO $FIP
+          FIP=$(openstack --insecure floating ip create external -f value -c floating_ip_address)
+          openstack --insecure server add floating ip VM-LABO $FIP
           echo "VM En Ligne : $FIP"
