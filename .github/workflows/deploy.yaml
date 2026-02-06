@@ -15,12 +15,11 @@ jobs:
         run: |
           sudo snap install openstackclients --classic
 
-      - name: Load OpenStack credentials
-        run: |
-          source /home/user/openrc.sh
 
       - name: Deploy VM
         run: |
+          source /home/user/openrc.sh
+          openstack server delete VM-LABO || true
           openstack server create VM-LABO \
             --image alpine-cloud \
             --flavor m1.small \
