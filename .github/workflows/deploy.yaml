@@ -19,7 +19,7 @@ jobs:
       - name: Deploy VM
         run: |
           source /home/user/openrc.sh
-          export OS_INSECURE=1
+          openstack --insecure token issue
           openstack server delete VM-LABO || true
           openstack server create VM-LABO \
             --image alpine-cloud \
