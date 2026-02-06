@@ -1,0 +1,9 @@
+packages:
+  - nginx
+write_files:
+  - path: /var/www/localhost/htdocs/index.html
+    content: |
+      <h1>Déploiement automatisé</h1>
+runcmd:
+  - rc-update add nginx
+  - service nginx start
