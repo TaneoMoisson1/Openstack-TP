@@ -29,7 +29,7 @@ jobs:
             --user-data cloud-init.yml \
             --security-group default \
             --os-interface internal
-          while ! openstack --insecure --os-interface public server list -f value -c Status | grep -q ACTIVE; do
+          while ! openstack --insecure server list -f value -c Status | grep -q ACTIVE; do
             sleep 5
           done
           FIP=$(openstack --insecure floating ip create external -f value -c floating_ip_address)
