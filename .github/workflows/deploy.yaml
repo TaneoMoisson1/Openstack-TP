@@ -31,6 +31,7 @@ jobs:
             --os-interface internal
           while ! openstack --insecure server list -f value -c Status | grep -q ACTIVE; do
             sleep 5
+            echo "waiting.."
           done
           FIP=$(openstack --insecure floating ip create external -f value -c floating_ip_address)
           openstack --insecure server add floating ip VM-LABO $FIP
